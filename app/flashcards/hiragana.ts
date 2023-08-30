@@ -1,9 +1,9 @@
-type Hiragana = {
+export type Kana = {
   value: string;
   romaji: string;
 };
 
-export const hiraganaList: Hiragana[] = [
+export const hiraganaList: Kana[] = [
   { value: "あ", romaji: "A" },
   { value: "い", romaji: "I" },
   { value: "う", romaji: "U" },
