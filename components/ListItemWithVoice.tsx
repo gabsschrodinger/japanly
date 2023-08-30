@@ -1,6 +1,6 @@
 "use client";
 
-import { Kana } from "@/app/flashcards/hiragana";
+import { Kana } from "@/lib/hiragana";
 
 type Props = {
   kana: Kana;

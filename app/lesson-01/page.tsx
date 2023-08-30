@@ -1,5 +1,6 @@
 import { ListItemWithVoice } from "@/components/ListItemWithVoice";
-import { hiraganaList } from "../flashcards/hiragana";
+import { hiraganaList } from "../../lib/hiragana";
+import { NextOption } from "@/components/NextOption";
 
 export default function Lesson01() {
   return (
@@ -53,6 +54,17 @@ export default function Lesson01() {
           especially since they are vastly different from the letters in the
           alphabet.
         </p>
+        <p>
+          To help you memorize kanas, we&apos;ll provide flashcard exercises. To
+          start, click on the button below to go to the first flashcard
+          exercise.
+        </p>
+
+        <NextOption
+          position="next"
+          title="Hiragana Flashcards 1"
+          url="/lesson-02"
+        />
       </article>
     </main>
   );

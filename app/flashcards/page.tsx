@@ -3,7 +3,7 @@
 import { getRandomItemFromArray } from "@/lib/utils";
 import React, { useState } from "react";
 import ClientSideRendering from "./ClientSideRendering";
-import { hiraganaList } from "./hiragana";
+import { hiraganaList } from "../../lib/hiragana";
 
 export default function Flashcard() {
   const [hiragana, setHiragana] = useState(

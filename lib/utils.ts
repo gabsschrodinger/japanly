@@ -3,3 +3,7 @@ export const getRandomItemFromArray = <T>(array: T[]): T => {
 
   return array[randomIndex];
 };
+
+export const captalizeWord = (word: string): string => {
+  return word.charAt(0).toUpperCase() + word.substring(1);
+};
