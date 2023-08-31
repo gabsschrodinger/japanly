@@ -2,11 +2,11 @@ import { ListItemWithVoice } from "@/components/ListItemWithVoice";
 import { hiraganaList } from "../../../lib/hiragana";
 import { NextOption } from "@/components/NextOption";
 
-export default function Lesson01() {
+export default function Lesson1() {
   return (
     <main className="p-20">
       <article className="prose lg:prose-xl dark:prose-invert">
-        <h1>Hiragana - Part 01</h1>
+        <h1>Hiragana - Part 1</h1>
         <p>The first content you&apos;ll learn with Japanly is Hiragana.</p>
 
         <h2>Introduction</h2>

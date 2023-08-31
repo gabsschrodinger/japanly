@@ -1,10 +1,12 @@
 "use client";
 
+import { MenuSubitem } from "@/lib/navigationMenuData";
+import Link from "next/link";
 import { useState } from "react";
 
 type Props = {
   name: string;
-  subitems: string[];
+  subitems: MenuSubitem[];
 };
 
 export const SidebarItem = ({ name, subitems }: Props) => {
@@ -44,12 +46,13 @@ export const SidebarItem = ({ name, subitems }: Props) => {
 
       <div className={(active ? "flex flex-col " : "hidden ") + "ml-3"}>
         {subitems.map((subitem, index) => (
-          <div
+          <Link
+            href={subitem.url}
             className="py-2 mt-2 rounded hover:bg-zinc-800 w-full cursor-pointer px-3"
             key={index}
           >
-            {subitem}
-          </div>
+            {subitem.name}
+          </Link>
         ))}
       </div>
     </div>
