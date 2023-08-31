@@ -1,5 +1,5 @@
 import { ListItemWithVoice } from "@/components/ListItemWithVoice";
-import { hiraganaList } from "../../lib/hiragana";
+import { hiraganaList } from "../../../lib/hiragana";
 import { NextOption } from "@/components/NextOption";
 
 export default function Lesson01() {
@@ -63,7 +63,7 @@ export default function Lesson01() {
         <NextOption
           position="next"
           title="Hiragana Flashcards 1"
-          url="/lesson-02"
+          url="/lessons/lesson-02"
         />
       </article>
     </main>

@@ -11,7 +11,7 @@ type Props = {
 
 export const NextOption = ({ position, title, url }: Props) => {
   return (
-    <div className="flex">
+    <div className="flex !mt-20">
       <Link
         href={url}
         className="no-underline cursor-pointer ml-auto w-2/5 border rounded p-2 flex justify-end flex-col items-end h-fit"
