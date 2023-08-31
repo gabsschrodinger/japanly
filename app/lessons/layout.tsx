@@ -1,6 +1,6 @@
 import { Sidebar } from "@/components/Sidebar";
-  
-export default function RootLayout({
+
+export default function LessonsLayout({
   children,
 }: {
   children: React.ReactNode;
@@ -8,7 +8,11 @@ export default function RootLayout({
   return (
     <div className="flex">
       <Sidebar />
-      {children}
+      <main className="p-20">
+        <article className="prose lg:prose-xl dark:prose-invert">
+          {children}
+        </article>
+      </main>
     </div>
   );
 }
