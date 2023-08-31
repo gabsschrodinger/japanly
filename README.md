@@ -16,6 +16,7 @@ Learn Japanese with short lessons and exercises.
 - PostCSS
 - ESLint
 - ChatGPT
+- Jest
 
 ### Content
 
