@@ -6,7 +6,7 @@ export default function LessonsLayout({
   children: React.ReactNode;
 }) {
   return (
-    <div className="flex">
+    <div className="flex dark:bg-black">
       <Sidebar />
       <main className="p-20">
         <article className="prose lg:prose-xl dark:prose-invert">

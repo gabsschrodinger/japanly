@@ -5,7 +5,7 @@ import { SidebarItem } from "./SidebarItem";
 
 export const Sidebar = () => {
   return (
-    <div className="w-1/4 bg-zinc-900 sticky min-h-screen">
+    <div className="dark:text-white w-1/4 dark:bg-zinc-900 bg-zinc-300 sticky min-h-screen">
       <div className="fixed w-1/4">
         <nav className="w-full p-4">
           {menuData.map((item, index) => (

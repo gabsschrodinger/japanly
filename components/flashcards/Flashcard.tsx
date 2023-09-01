@@ -55,7 +55,7 @@ export const Flashcard = ({ kanas }: Props) => {
 
   return (
     <ClientSideRendering>
-      <div className="text-2xl border p-3 rounded flex items-center justify-center">
+      <div className="text-2xl border p-3 rounded flex items-center justify-center dark:border-gray-200 border-gray-900">
         Hiragana: {entry.entry}
       </div>
 
@@ -67,7 +67,7 @@ export const Flashcard = ({ kanas }: Props) => {
             key={index}
             className={
               (index > 0 ? "mt-4 " : "") +
-              "text-2xl border p-3 rounded flex items-center justify-center select-none cursor-pointer"
+              "text-2xl dark:border-gray-200 border-gray-900 border p-3 rounded flex items-center justify-center select-none cursor-pointer"
             }
             onClick={() => selectOption(option.value)}
           >

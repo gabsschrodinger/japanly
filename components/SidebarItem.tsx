@@ -16,8 +16,8 @@ export const SidebarItem = ({ name, subitems }: Props) => {
     <div className="w-full">
       <div
         className={
-          (active ? "bg-zinc-800 " : "") +
-          "p-3 w-full hover:bg-zinc-800 rounded cursor-pointer flex"
+          (active ? "dark:bg-zinc-800 bg-zinc-400 " : "") +
+          "p-3 w-full dark:hover:bg-zinc-800 hover:bg-zinc-400 rounded cursor-pointer flex"
         }
         onClick={() => setActive((prev) => !prev)}
       >
@@ -48,7 +48,7 @@ export const SidebarItem = ({ name, subitems }: Props) => {
         {subitems.map((subitem, index) => (
           <Link
             href={subitem.url}
-            className="py-2 mt-2 rounded hover:bg-zinc-800 w-full cursor-pointer px-3"
+            className="py-2 mt-2 rounded dark:hover:bg-zinc-800 hover:bg-zinc-400 w-full cursor-pointer px-3"
             key={index}
           >
             {subitem.name}
