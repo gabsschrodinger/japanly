@@ -9,9 +9,10 @@ import { getRandomEntry } from "@/lib/flashcard.utils";
 type Props = {
   kanas: Text[];
   end: () => void;
+  length: number;
 };
 
-export const Flashcard = ({ kanas, end }: Props) => {
+export const Flashcard = ({ kanas, end, length }: Props) => {
   const [round, setRound] = useState(1);
   const [entry, setEntry] = useState(getRandomEntry(kanas));
   const [isModalActive, setModalActive] = useState(false);
@@ -23,7 +24,7 @@ export const Flashcard = ({ kanas, end }: Props) => {
   };
 
   const resume = () => {
-    if (round >= 15) {
+    if (round >= length) {
       end();
       return;
     }
@@ -36,7 +37,9 @@ export const Flashcard = ({ kanas, end }: Props) => {
   return (
     <ClientSideRendering>
       <div className="select-none mb-10 w-full flex justify-center items-center">
-        <div className="border p-3 rounded-full">{round}/15</div>
+        <div className="border p-3 rounded-full">
+          {round}/{length}
+        </div>
       </div>
 
       <div className="text-2xl border p-3 rounded flex items-center justify-center dark:border-gray-200 border-gray-900">
