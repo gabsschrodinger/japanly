@@ -1,3 +1,4 @@
+import React from "react";
 import { ListItemWithVoice } from "@/components/ListItemWithVoice";
 import { hiraganaList } from "../../../lib/hiragana";
 import { NextOption } from "@/components/NextOption";
@@ -9,6 +10,11 @@ export default function Lesson1() {
       <p>The first content you&apos;ll learn with Japanly is Hiragana.</p>
 
       <h2>Introduction</h2>
+      <p>
+        The Japanese language is composed by three writing systems: hiragana,
+        katakana, and kanji. We&apos;ll talk about each of those, starting from
+        hiragana.
+      </p>
       <p>
         Hiragana is a Japanese syllabary mainly used for{" ("}
         <a href="https://en.wikipedia.org/wiki/Hiragana" target="_blank">

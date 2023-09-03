@@ -6,7 +6,7 @@ describe("Hiragana", () => {
   it("Romaji is correct", () => {
     hiraganaList.forEach((hiragana) => {
       expect(hiragana.romaji.toLowerCase()).toEqual(
-        toRomaji(hiragana.value).toLowerCase()
+        toRomaji(hiragana.japanese).toLowerCase()
       );
     });
   });

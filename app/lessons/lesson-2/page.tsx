@@ -1,5 +1,6 @@
 "use client";
 
+import React from "react";
 import { Flashcard } from "@/components/flashcards/Flashcard";
 import { hiraganaList } from "@/lib/hiragana";
 import { useState } from "react";
@@ -18,7 +19,7 @@ export default function Lesson2() {
             hiragana seen in the previous lesson:{" "}
             {hiraganaList
               .slice(0, 5)
-              .map((hiragana) => hiragana.value)
+              .map((hiragana) => hiragana.japanese)
               .join(", ")}
             .
           </p>
@@ -45,7 +46,12 @@ export default function Lesson2() {
         </>
       )}
 
-      {isFlashcardActive && <Flashcard kanas={hiraganaList.slice(0, 5)} />}
+      {isFlashcardActive && (
+        <Flashcard
+          kanas={hiraganaList.slice(0, 5)}
+          end={() => setFlashcardActive(false)}
+        />
+      )}
     </>
   );
 }

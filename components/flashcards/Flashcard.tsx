@@ -1,44 +1,18 @@
 "use client";
 
-import { getRandomItemFromArray } from "@/lib/utils";
 import React, { useState } from "react";
-import { Kana } from "../../lib/hiragana";
-import { shuffle } from "lodash";
+import { Text } from "../../lib/hiragana";
 import { FlashcardModal } from "./FlashcardModal";
 import ClientSideRendering from "./ClientSideRendering";
+import { getRandomEntry } from "@/lib/flashcard.utils";
 
 type Props = {
-  kanas: Kana[];
+  kanas: Text[];
+  end: () => void;
 };
 
-type FlashcardEntry = {
-  entry: string;
-  options: { value: string; isCorrect: boolean }[];
-};
-
-const getRandomEntry = (kanas: Kana[]): FlashcardEntry => {
-  const randomKana = getRandomItemFromArray(kanas);
-  const options: { value: string; isCorrect: boolean }[] = [
-    { isCorrect: true, value: randomKana.romaji },
-  ];
-
-  while (options.length < 5) {
-    const differentKana = getRandomItemFromArray(kanas);
-
-    if (options.map((option) => option.value).includes(differentKana.romaji)) {
-      continue;
-    }
-
-    options.push({ value: differentKana.romaji, isCorrect: false });
-  }
-
-  return {
-    entry: randomKana.value,
-    options: shuffle(options),
-  };
-};
-
-export const Flashcard = ({ kanas }: Props) => {
+export const Flashcard = ({ kanas, end }: Props) => {
+  const [round, setRound] = useState(1);
   const [entry, setEntry] = useState(getRandomEntry(kanas));
   const [isModalActive, setModalActive] = useState(false);
   const [selectedOption, setSelectedOption] = useState("");
@@ -49,14 +23,24 @@ export const Flashcard = ({ kanas }: Props) => {
   };
 
   const resume = () => {
+    if (round >= 15) {
+      end();
+      return;
+    }
+
     setModalActive(false);
+    setRound((prev) => prev + 1);
     setEntry(getRandomEntry(kanas));
   };
 
   return (
     <ClientSideRendering>
+      <div className="select-none mb-10 w-full flex justify-center items-center">
+        <div className="border p-3 rounded-full">{round}/15</div>
+      </div>
+
       <div className="text-2xl border p-3 rounded flex items-center justify-center dark:border-gray-200 border-gray-900">
-        Hiragana: {entry.entry}
+        {entry.subtitle}: {entry.entry}
       </div>
 
       <div>

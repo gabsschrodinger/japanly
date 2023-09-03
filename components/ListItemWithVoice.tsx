@@ -1,9 +1,10 @@
 "use client";
 
-import { Kana } from "@/lib/hiragana";
+import React from "react";
+import { Text } from "@/lib/hiragana";
 
 type Props = {
-  kana: Kana;
+  kana: Text;
 };
 
 export const ListItemWithVoice = ({ kana }: Props) => {
@@ -17,9 +18,9 @@ export const ListItemWithVoice = ({ kana }: Props) => {
     <li>
       <div
         className="flex justify-center items-center w-fit"
-        onClick={() => speak(kana.value)}
+        onClick={() => speak(kana.japanese)}
       >
-        {kana.value} (pronounce: {kana.romaji})
+        {kana.japanese} (pronounce: {kana.romaji})
         <div className="ml-4 cursor-pointer border rounded-full p-1">
           <svg
             xmlns="http://www.w3.org/2000/svg"

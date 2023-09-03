@@ -1,5 +1,6 @@
 "use client";
 
+import React from "react";
 import { MenuSubitem } from "@/lib/navigationMenuData";
 import Link from "next/link";
 import { useState } from "react";
@@ -17,7 +18,7 @@ export const SidebarItem = ({ name, subitems }: Props) => {
       <div
         className={
           (active ? "dark:bg-zinc-800 bg-zinc-400 " : "") +
-          "p-3 w-full dark:hover:bg-zinc-800 hover:bg-zinc-400 rounded cursor-pointer flex"
+          "p-3 w-full dark:hover:bg-zinc-800 hover:bg-zinc-400 rounded cursor-pointer flex duration-300"
         }
         onClick={() => setActive((prev) => !prev)}
       >
@@ -48,7 +49,7 @@ export const SidebarItem = ({ name, subitems }: Props) => {
         {subitems.map((subitem, index) => (
           <Link
             href={subitem.url}
-            className="py-2 mt-2 rounded dark:hover:bg-zinc-800 hover:bg-zinc-400 w-full cursor-pointer px-3"
+            className="py-2 mt-2 rounded dark:hover:bg-zinc-800 hover:bg-zinc-400 w-full cursor-pointer px-3 duration-300"
             key={index}
           >
             {subitem.name}
