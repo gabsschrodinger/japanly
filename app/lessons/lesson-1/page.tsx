@@ -47,7 +47,7 @@ export default function Lesson1() {
       </p>
       <ul>
         {hiraganaList.slice(0, 5).map((hiragana, index) => (
-          <ListItemWithVoice kana={hiragana} key={index} />
+          <ListItemWithVoice text={hiragana} key={index} />
         ))}
       </ul>
       <p>

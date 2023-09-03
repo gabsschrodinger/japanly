@@ -16,13 +16,13 @@ export const ListItemWithVoice = ({ text }: Props) => {
 
   return (
     <li>
-      <div
-        data-testid="void-speaker"
-        className="flex justify-center items-center w-fit"
-        onClick={() => speak(text.japanese)}
-      >
+      <div className="flex justify-center items-center w-fit">
         {text.japanese} (pronounce: {text.romaji})
-        <div className="ml-4 cursor-pointer border rounded-full p-1">
+        <div
+          className="ml-4 cursor-pointer border rounded-full p-1"
+          onClick={() => speak(text.japanese)}
+          data-testid="void-speaker"
+        >
           <svg
             xmlns="http://www.w3.org/2000/svg"
             fill="none"
