@@ -3,7 +3,7 @@
 import React, { useState } from "react";
 import { Text } from "../../lib/hiragana";
 import { FlashcardModal } from "./FlashcardModal";
-import ClientSideRendering from "./ClientSideRendering";
+import ClientSideRendering from "../ClientSideRendering";
 import { getRandomEntry } from "@/lib/flashcard.utils";
 
 type Props = {
