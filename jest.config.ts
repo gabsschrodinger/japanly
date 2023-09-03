@@ -9,6 +9,14 @@ const config: Config = {
     "components/**/*.{ts,tsx}",
     "lib/**/*.{ts,tsx}",
   ],
+  transform: {
+    "^.+\\.tsx?$": [
+      "ts-jest",
+      {
+        tsconfig: "tsconfig.jest.json",
+      },
+    ],
+  },
 };
 
 export default config;
