@@ -4,12 +4,12 @@ import React from "react";
 import { Text } from "@/lib/hiragana";
 
 type Props = {
-  kana: Text;
+  text: Text;
 };
 
-export const ListItemWithVoice = ({ kana }: Props) => {
-  const speak = (kana: string) => {
-    const utterance = new SpeechSynthesisUtterance(kana);
+export const ListItemWithVoice = ({ text }: Props) => {
+  const speak = (text: string) => {
+    const utterance = new SpeechSynthesisUtterance(text);
     utterance.lang = "ja-JP";
     window.speechSynthesis.speak(utterance);
   };
@@ -17,10 +17,11 @@ export const ListItemWithVoice = ({ kana }: Props) => {
   return (
     <li>
       <div
+        data-testid="void-speaker"
         className="flex justify-center items-center w-fit"
-        onClick={() => speak(kana.japanese)}
+        onClick={() => speak(text.japanese)}
       >
-        {kana.japanese} (pronounce: {kana.romaji})
+        {text.japanese} (pronounce: {text.romaji})
         <div className="ml-4 cursor-pointer border rounded-full p-1">
           <svg
             xmlns="http://www.w3.org/2000/svg"
