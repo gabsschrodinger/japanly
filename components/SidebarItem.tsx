@@ -21,6 +21,7 @@ export const SidebarItem = ({ name, subitems }: Props) => {
           "p-3 w-full dark:hover:bg-zinc-800 hover:bg-zinc-400 rounded cursor-pointer flex duration-300"
         }
         onClick={() => setActive((prev) => !prev)}
+        data-testid="subitems-container-button"
       >
         <div>{name}</div>
         <div
@@ -45,7 +46,10 @@ export const SidebarItem = ({ name, subitems }: Props) => {
         </div>
       </div>
 
-      <div className={(active ? "flex flex-col " : "hidden ") + "ml-3"}>
+      <div
+        className={(active ? "flex flex-col " : "hidden ") + "ml-3"}
+        data-testid="subitems-container"
+      >
         {subitems.map((subitem, index) => (
           <Link
             href={subitem.url}

@@ -8,8 +8,7 @@ const config: Config = {
     "app/**/*.{ts,tsx}",
     "components/**/*.{ts,tsx}",
     "lib/**/*.{ts,tsx}",
-    "!lib/navigationMenuData.ts",
-    "!components/ClientSideRendering.tsx"
+    "!components/ClientSideRendering.tsx",
   ],
   transform: {
     "^.+\\.tsx?$": [
@@ -18,6 +17,9 @@ const config: Config = {
         tsconfig: "tsconfig.jest.json",
       },
     ],
+  },
+  moduleNameMapper: {
+    "^@/(.*)$": "<rootDir>/$1",
   },
 };
 
