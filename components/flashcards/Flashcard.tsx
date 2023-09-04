@@ -54,7 +54,7 @@ export const Flashcard = ({ pool, end, length }: Props) => {
             key={index}
             className={
               (index > 0 ? "mt-4 " : "") +
-              "text-2xl dark:border-gray-200 border-gray-900 border p-3 rounded flex items-center justify-center select-none cursor-pointer"
+              "dark:hover:bg-zinc-800 hover:bg-zinc-400 duration-300 text-2xl dark:border-gray-200 border-gray-900 border p-3 rounded flex items-center justify-center select-none cursor-pointer"
             }
             onClick={() => selectOption(option.value)}
           >
