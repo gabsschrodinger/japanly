@@ -1,23 +1,16 @@
+import { FlashcardManager } from "@/lib/flashcards/FlashcardManager";
+import { FlashcardHistoryEntry } from "@/lib/flashcards/types";
 import React from "react";
 
 type Props = {
-  entry: string;
-  selectedOption: string;
-  correctOption: string;
+  history: FlashcardHistoryEntry;
   resume: () => void;
   isActive: boolean;
 };
 
-export const FlashcardModal = ({
-  selectedOption,
-  entry,
-  correctOption,
-  resume,
-  isActive,
-}: Props) => {
+export const FlashcardModal = ({ history, resume, isActive }: Props) => {
   const playSound = () => {
-    const isCorrect = selectedOption === correctOption;
-    const audioFile = isCorrect
+    const audioFile = history.isCorrect
       ? "/flashcard_correct.wav"
       : "/flashcard_incorrect.wav";
 
@@ -31,7 +24,7 @@ export const FlashcardModal = ({
   return (
     <div className="fixed w-screen h-screen flex justify-center items-center z-50 top-0 left-0 bg-black bg-opacity-40">
       <div className="bg-zinc-900 w-1/3 h-2/6 flex flex-col justify-start items-center rounded border p-4">
-        {selectedOption === correctOption && (
+        {history.isCorrect && (
           <div className="flex justify-center items-center">
             <div className="mr-3">
               <svg
@@ -53,7 +46,7 @@ export const FlashcardModal = ({
           </div>
         )}
 
-        {selectedOption !== correctOption && (
+        {!history.isCorrect && (
           <div className="flex justify-center items-center">
             <div className="mr-3">
               <svg
@@ -77,7 +70,7 @@ export const FlashcardModal = ({
 
         <hr className="w-full !my-0 text-white"></hr>
         <div className="!mt-5">
-          {entry} is equivalent to {correctOption}
+          {history.values[0]} is equivalent to {history.values[1]}
         </div>
         <div
           className="mt-auto border rounded p-2 cursor-pointer"

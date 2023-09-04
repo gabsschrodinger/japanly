@@ -49,7 +49,7 @@ export default function Lesson2() {
       {isFlashcardActive && (
         <Flashcard
           length={15}
-          kanas={hiraganaList.slice(0, 5)}
+          pool={hiraganaList.slice(0, 5)}
           end={() => setFlashcardActive(false)}
         />
       )}

@@ -9,6 +9,8 @@ const config: Config = {
     "components/**/*.{ts,tsx}",
     "lib/**/*.{ts,tsx}",
     "!components/ClientSideRendering.tsx",
+    "!**/layout.{ts,tsx}",
+    "!app/lessons/**",
   ],
   transform: {
     "^.+\\.tsx?$": [
@@ -20,6 +22,14 @@ const config: Config = {
   },
   moduleNameMapper: {
     "^@/(.*)$": "<rootDir>/$1",
+  },
+  coverageThreshold: {
+    global: {
+      branches: 70,
+      functions: 70,
+      lines: 70,
+      statements: 70,
+    },
   },
 };
 

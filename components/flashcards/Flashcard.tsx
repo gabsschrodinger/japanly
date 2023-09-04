@@ -4,52 +4,52 @@ import React, { useState } from "react";
 import { Text } from "../../lib/hiragana";
 import { FlashcardModal } from "./FlashcardModal";
 import ClientSideRendering from "../ClientSideRendering";
-import { getRandomEntry } from "@/lib/flashcard.utils";
+import { FlashcardManager } from "@/lib/flashcards/FlashcardManager";
 
 type Props = {
-  kanas: Text[];
+  pool: Text[];
   end: () => void;
   length: number;
 };
 
-export const Flashcard = ({ kanas, end, length }: Props) => {
-  const [round, setRound] = useState(1);
-  const [entry, setEntry] = useState(getRandomEntry(kanas));
+export const Flashcard = ({ pool, end, length }: Props) => {
+  const [manager] = useState(new FlashcardManager(pool));
   const [isModalActive, setModalActive] = useState(false);
-  const [selectedOption, setSelectedOption] = useState("");
 
   const selectOption = (value: string) => {
-    setSelectedOption(value);
+    manager.selectOption(value);
     setModalActive(true);
   };
 
   const resume = () => {
-    if (round >= length) {
+    if (manager.round >= length) {
       end();
       return;
     }
 
     setModalActive(false);
-    setRound((prev) => prev + 1);
-    setEntry(getRandomEntry(kanas));
+    manager.getNewEntry();
   };
 
   return (
     <ClientSideRendering>
       <div className="select-none mb-10 w-full flex justify-center items-center">
         <div className="border p-3 rounded-full">
-          {round}/{length}
+          {manager.round}/{length}
         </div>
       </div>
 
-      <div className="text-2xl border p-3 rounded flex items-center justify-center dark:border-gray-200 border-gray-900">
-        {entry.subtitle}: {entry.entry}
+      <div
+        data-testid="flashcard-header"
+        className="text-2xl border p-3 rounded flex items-center justify-center dark:border-gray-200 border-gray-900"
+      >
+        {manager.currentEntry.subtitle}: {manager.currentEntry.entry}
       </div>
 
       <div>
         <p>Select the appropriate answer:</p>
 
-        {entry.options.map((option, index) => (
+        {manager.currentEntry.options.map((option, index) => (
           <div
             key={index}
             className={
@@ -65,12 +65,8 @@ export const Flashcard = ({ kanas, end, length }: Props) => {
 
       {isModalActive && (
         <FlashcardModal
+          history={manager.getLastHistoryEntry()}
           isActive={isModalActive}
-          correctOption={
-            entry.options.filter((option) => option.isCorrect)[0].value
-          }
-          selectedOption={selectedOption}
-          entry={entry.entry}
           resume={resume}
         />
       )}

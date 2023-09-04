@@ -3,6 +3,7 @@ import { render, screen } from "@testing-library/react";
 import { FlashcardModal } from "./FlashcardModal";
 import { faker } from "@faker-js/faker";
 import "@testing-library/jest-dom";
+import { FlashcardHistoryEntry } from "@/lib/flashcards/types";
 
 describe("Flashcard Modal", () => {
   const mockedPlay = jest.fn();
@@ -19,15 +20,13 @@ describe("Flashcard Modal", () => {
   it("should render only positive message when the answer is correct", () => {
     const entry = faker.animal.type();
     const option = faker.animal.cat();
+    const history: FlashcardHistoryEntry = {
+      isCorrect: true,
+      values: [entry, option],
+    };
 
     render(
-      <FlashcardModal
-        entry={entry}
-        isActive={false}
-        correctOption={option}
-        selectedOption={option}
-        resume={jest.fn()}
-      />
+      <FlashcardModal history={history} isActive={false} resume={jest.fn()} />
     );
 
     const positiveMessage = screen.queryByText("Correct answer!");
@@ -40,16 +39,13 @@ describe("Flashcard Modal", () => {
   it("should render only negative message when the answer is incorrect", () => {
     const entry = faker.animal.type();
     const correctOption = faker.animal.cat();
-    const selectedOption = faker.animal.snake();
+    const history: FlashcardHistoryEntry = {
+      isCorrect: false,
+      values: [entry, correctOption],
+    };
 
     render(
-      <FlashcardModal
-        entry={entry}
-        isActive={false}
-        correctOption={correctOption}
-        selectedOption={selectedOption}
-        resume={jest.fn()}
-      />
+      <FlashcardModal history={history} isActive={false} resume={jest.fn()} />
     );
 
     const positiveMessage = screen.queryByText("Correct answer!");
@@ -59,41 +55,39 @@ describe("Flashcard Modal", () => {
     expect(positiveMessage).not.toBeInTheDocument();
   });
 
-  it("should call resume when user click on 'Continue'", () => {
-    const entry = faker.animal.type();
-    const correctOption = faker.animal.snake();
-    const selectedOption = faker.animal.snake();
-    const resume = jest.fn();
+  it.each([[true], [false]])(
+    "should call resume when user click on 'Continue'",
+    (isCorrect) => {
+      const entry = faker.animal.type();
+      const correctOption = faker.animal.snake();
+      const resume = jest.fn();
+      const history: FlashcardHistoryEntry = {
+        isCorrect,
+        values: [entry, correctOption],
+      };
 
-    render(
-      <FlashcardModal
-        entry={entry}
-        isActive={false}
-        correctOption={correctOption}
-        selectedOption={selectedOption}
-        resume={resume}
-      />
-    );
+      render(
+        <FlashcardModal history={history} isActive={false} resume={resume} />
+      );
 
-    const continueElement = screen.getByText("Continue");
+      const continueElement = screen.getByText("Continue");
 
-    expect(resume).not.toHaveBeenCalled();
-    continueElement.click();
-    expect(resume).toHaveBeenCalledTimes(1);
-  });
+      expect(resume).not.toHaveBeenCalled();
+      continueElement.click();
+      expect(resume).toHaveBeenCalledTimes(1);
+    }
+  );
 
   it("should create audio with correct sound when selected option is correct", () => {
     const entry = faker.animal.type();
     const option = faker.animal.snake();
+    const history: FlashcardHistoryEntry = {
+      isCorrect: true,
+      values: [entry, option],
+    };
 
     render(
-      <FlashcardModal
-        entry={entry}
-        isActive={true}
-        correctOption={option}
-        selectedOption={option}
-        resume={jest.fn()}
-      />
+      <FlashcardModal history={history} isActive={true} resume={jest.fn()} />
     );
 
     expect(Audio).toHaveBeenCalledTimes(1);
@@ -102,56 +96,53 @@ describe("Flashcard Modal", () => {
 
   it("should create audio with incorrect sound when selected option is incorrect", () => {
     const entry = faker.animal.type();
-    const selectedOption = faker.animal.snake();
     const correctOption = faker.animal.bear();
+    const history: FlashcardHistoryEntry = {
+      isCorrect: false,
+      values: [entry, correctOption],
+    };
 
     render(
-      <FlashcardModal
-        entry={entry}
-        isActive={true}
-        correctOption={correctOption}
-        selectedOption={selectedOption}
-        resume={jest.fn()}
-      />
+      <FlashcardModal history={history} isActive={true} resume={jest.fn()} />
     );
 
     expect(Audio).toHaveBeenCalledTimes(1);
     expect(Audio).toHaveBeenCalledWith("/flashcard_incorrect.wav");
   });
 
-  it("should play audio when modal is active", () => {
-    const entry = faker.animal.type();
-    const correctOption = faker.animal.snake();
-    const selectedOption = faker.animal.snake();
+  it.each([[true], [false]])(
+    "should play audio when modal is active",
+    (isCorrect) => {
+      const entry = faker.animal.type();
+      const correctOption = faker.animal.snake();
+      const history: FlashcardHistoryEntry = {
+        isCorrect,
+        values: [entry, correctOption],
+      };
 
-    render(
-      <FlashcardModal
-        entry={entry}
-        isActive={true}
-        correctOption={correctOption}
-        selectedOption={selectedOption}
-        resume={jest.fn()}
-      />
-    );
+      render(
+        <FlashcardModal history={history} isActive={true} resume={jest.fn()} />
+      );
 
-    expect(mockedPlay).toHaveBeenCalledTimes(1);
-  });
+      expect(mockedPlay).toHaveBeenCalledTimes(1);
+    }
+  );
 
-  it("should not play audio when modal is inactive", () => {
-    const entry = faker.animal.type();
-    const correctOption = faker.animal.snake();
-    const selectedOption = faker.animal.snake();
+  it.each([[true], [false]])(
+    "should not play audio when modal is inactive",
+    (isCorrect) => {
+      const entry = faker.animal.type();
+      const correctOption = faker.animal.snake();
+      const history: FlashcardHistoryEntry = {
+        isCorrect,
+        values: [entry, correctOption],
+      };
 
-    render(
-      <FlashcardModal
-        entry={entry}
-        isActive={false}
-        correctOption={correctOption}
-        selectedOption={selectedOption}
-        resume={jest.fn()}
-      />
-    );
+      render(
+        <FlashcardModal history={history} isActive={false} resume={jest.fn()} />
+      );
 
-    expect(mockedPlay).not.toHaveBeenCalled();
-  });
+      expect(mockedPlay).not.toHaveBeenCalled();
+    }
+  );
 });
