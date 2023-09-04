@@ -9,6 +9,7 @@ const config: Config = {
     "components/**/*.{ts,tsx}",
     "lib/**/*.{ts,tsx}",
     "!lib/navigationMenuData.ts",
+    "!components/ClientSideRendering.tsx"
   ],
   transform: {
     "^.+\\.tsx?$": [
