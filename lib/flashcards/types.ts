@@ -1,3 +1,5 @@
+import { Text } from "../hiragana";
+
 export type FlashcardEntry = {
   entry: string;
   subtitle: string;
@@ -5,3 +7,5 @@ export type FlashcardEntry = {
 };
 
 export type FlashcardHistoryEntry = { values: string[]; isCorrect: boolean };
+
+export type FlashcardFeedbackEntry = { text: Text; percentageCorrect: number };

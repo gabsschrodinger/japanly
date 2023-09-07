@@ -1,6 +1,21 @@
-import { capitalize, keys, last, sample, shuffle, values } from "lodash";
+import {
+  capitalize,
+  includes,
+  keys,
+  last,
+  round,
+  sample,
+  shuffle,
+  some,
+  values,
+} from "lodash";
 import { Text } from "../hiragana";
-import { FlashcardEntry, FlashcardHistoryEntry } from "./types";
+import {
+  FlashcardEntry,
+  FlashcardFeedbackEntry,
+  FlashcardHistoryEntry,
+} from "./types";
+import { FlashcardFeedbackManager } from "./FlashcardFeedbackManager";
 
 export class FlashcardManager {
   private pool: Text[];
@@ -91,5 +106,35 @@ export class FlashcardManager {
     }
 
     return last(this.history) as FlashcardHistoryEntry;
+  }
+
+  public getFeedback(): FlashcardFeedbackManager {
+    const feedback: FlashcardFeedbackEntry[] = [];
+
+    for (const text of this.pool) {
+      const correct = this.history.filter(
+        (entry) =>
+          entry.isCorrect &&
+          some(values(text), (value) => includes(entry.values, value))
+      ).length;
+      const incorrect = this.history.filter(
+        (entry) =>
+          !entry.isCorrect &&
+          some(values(text), (value) => includes(entry.values, value))
+      ).length;
+
+      if (correct + incorrect < 1) {
+        continue;
+      }
+
+      const percentageCorrect = round(correct / (correct + incorrect), 2) * 100;
+
+      feedback.push({
+        text,
+        percentageCorrect,
+      });
+    }
+
+    return new FlashcardFeedbackManager(feedback);
   }
 }

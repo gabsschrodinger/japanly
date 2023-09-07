@@ -1,7 +1,9 @@
 import { faker } from "@faker-js/faker";
-import { hiraganaList } from "../hiragana";
+import { Text, hiraganaList } from "../hiragana";
 import { FlashcardManager } from "./FlashcardManager";
-import { last } from "lodash";
+import { last, sample } from "lodash";
+import { FlashcardFeedbackManager } from "./FlashcardFeedbackManager";
+import exp from "constants";
 
 describe("Flashcard Manager", () => {
   describe("constructor", () => {
@@ -159,6 +161,49 @@ describe("Flashcard Manager", () => {
       expect(() => manager.getLastHistoryEntry()).toThrowError(
         "No history entries to get."
       );
+    });
+  });
+
+  describe("get feedback", () => {
+    it("should return a FlashcardFeedbackManager instance", () => {
+      const manager = new FlashcardManager(hiraganaList);
+
+      const feedback = manager.getFeedback();
+
+      expect(feedback).toBeInstanceOf(FlashcardFeedbackManager);
+    });
+
+    it("should return a FlashcardFeedbackManager instance with correct feedback", () => {
+      const manager = new FlashcardManager(hiraganaList);
+      const randomText = sample(hiraganaList) as Text;
+      const secondText = sample(hiraganaList) as Text;
+
+      manager.history = [
+        {
+          isCorrect: true,
+          values: [randomText.japanese, randomText.romaji],
+        },
+        {
+          isCorrect: false,
+          values: [secondText.japanese, secondText.romaji],
+        },
+        {
+          isCorrect: true,
+          values: [secondText.japanese, secondText.romaji],
+        },
+      ];
+
+      const feedback = manager.getFeedback();
+
+      expect(feedback.feedback).toContainEqual({
+        text: randomText,
+        percentageCorrect: 100,
+      });
+      expect(feedback.feedback).toContainEqual({
+        text: secondText,
+        percentageCorrect: 50,
+      });
+      expect(feedback.feedback.length).toBe(2);
     });
   });
 });
