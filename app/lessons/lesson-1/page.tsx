@@ -64,9 +64,11 @@ export default function Lesson1() {
       </p>
 
       <NextOption
-        position="next"
-        title="Hiragana Flashcards 1"
-        url="/lessons/lesson-2"
+        next={{
+          position: "next",
+          title: "Hiragana Flashcards 1",
+          url: "/lessons/lesson-2",
+        }}
       />
     </>
   );

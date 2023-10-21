@@ -4,6 +4,7 @@ import React from "react";
 import { Flashcard } from "@/components/flashcards/Flashcard";
 import { hiraganaList } from "@/lib/hiragana";
 import { useState } from "react";
+import { NextOption } from "@/components/NextOption";
 
 export default function Lesson2() {
   const [isFlashcardActive, setFlashcardActive] = useState(false);
@@ -51,6 +52,16 @@ export default function Lesson2() {
           length={15}
           pool={hiraganaList.slice(0, 5)}
           end={() => setFlashcardActive(false)}
+        />
+      )}
+
+      {!isFlashcardActive && (
+        <NextOption
+          previous={{
+            position: "previous",
+            title: "Hiragana - Part 1",
+            url: "/lessons/lesson-1",
+          }}
         />
       )}
     </>
